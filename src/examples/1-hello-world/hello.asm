@@ -14,7 +14,9 @@ helloWorld:
 
     lda message, x
 !loop:
-    sta $0400, x
+    sta SCREEN.SCREEN_MEMORY, x
+    lda #WHITE
+    sta SCREEN.SCREEN_CHARACTER_COLOR, x
     inx
     lda message, x
     cmp #0
