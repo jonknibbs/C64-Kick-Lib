@@ -1,5 +1,6 @@
 #importonce 
 #import "../../lib/screen.asm"
+#import "../../lib/kernal.asm"
 
 BasicUpstart2(start)
 *=$3000 "Program Start"
@@ -8,6 +9,7 @@ start:
 
     lda #BLACK
     sta SCREEN.SCREEN_COLOR
+    jsr KERNAL.CLEAR_SCREEN
 
     lda message
     ldx #0

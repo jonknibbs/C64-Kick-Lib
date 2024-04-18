@@ -1,10 +1,12 @@
 #importonce 
 #import "../../lib/screen.asm"
+#import "../../lib/kernal.asm"
 
 BasicUpstart2(helloWorld)
 *=$3000 "Hello World"
 
 helloWorld:
+    jsr KERNAL.CLEAR_SCREEN
 
     lda #BLACK
     sta SCREEN.SCREEN_COLOR
