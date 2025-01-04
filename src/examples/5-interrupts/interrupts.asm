@@ -34,7 +34,7 @@ start:
     lda INTERRUPT.RASTER_LINE_MSB
     and #%01111111 //turn off the 7th bit.
     sta INTERRUPT.RASTER_LINE_MSB
-    //Set the raster interrupt to be called at zero.
+    //Set the raster interrupt to be called at raster line zero.
     lda #0
     sta INTERRUPT.RASTER_LINE
 
@@ -51,7 +51,7 @@ start:
 interruptCode:
     inc counter
     lda counter
-    cmp #50
+    cmp #60 //Only change the border color every 60 frames.
     bne acknowledgeInterrupt
     inc SCREEN.BORDER_COLOR
     lda #0
