@@ -110,7 +110,7 @@ start:
     sta ZERO_PAGE.PARAM_3
     lda #$03 // Store the number to multiply by. %00000011
     sta ZERO_PAGE.TEMP
-    jsr multiply8BitBy8Bit // Multiply 9 by 3.
+    jsr multiply8BitBy8Bit // Multiply 9 by 3 = 27 $1B.
     
     lda #$00
     sta ZERO_PAGE.PARAM_1
@@ -122,8 +122,24 @@ start:
     sta ZERO_PAGE.TEMP
     jsr multiply8BitBy8Bit // Multiply 9 by 20 = 270 $010E.
 
+    ///////////////////////
+    // Binary Coded Decimal
+    ///////////////////////
+
+    // Each nibble will only store a number between 0 and 9. With a byte containing a value of 99
+    // artimethtic operations on values will treat them as decimal numbers rather than hex.
+    sed //enable BCD
+    
+    clc // Clear the carry flag, this will be used to store the overflow of the addition.
+    lda #$05
+    adc #$07 // Add 5 + 7 = 12
+    sta ZERO_PAGE.TEMP // Store in $02 as $12.
+    adc #$77 // Add 12 + 77 = 89
+    sta ZERO_PAGE.TEMP // Store in $02 as $89.
 .break
-    nop
+
+
+    cld    
     
 !loop:
     jmp !loop-
